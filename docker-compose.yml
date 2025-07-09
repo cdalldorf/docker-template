@@ -1,22 +1,27 @@
-version: "3.2"
-
 services:
-  python:       
+  jupyter:
     build: 
-      dockerfile: ./docker/Dockerfile-dev
+      dockerfile: ./docker/Dockerfile
       context: ./
     image: my_project_python
     env_file:
-      - .env_dev
-
+      - .env
     ports:
       - "8888:8888"
-
-    command: 
-      jupyter lab --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='local_dev'
-
+    command: jupyter lab --no-browser --ip=0.0.0.0 --allow-root --ServerApp.token='local'
     volumes:
       - ./data:/data
       - ./code:/code
       - ./notebooks:/notebooks
 
+  shell:
+    image: my_project_python
+    env_file:
+      - .env
+    entrypoint: /bin/bash
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/data
+      - ./code:/code
+      - ./notebooks:/notebooks

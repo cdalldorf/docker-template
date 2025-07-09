@@ -1,3 +1,20 @@
+Basic procedure for using this:
+1 - Create a new git repository on github.com, using this repository as a template, navigate to the new directory
+2 - Modify ./docker-compose.yml to update image: my_project_python to project name
+3 - Build initial environemnt using docker-compose build
+4 - Use docker-compose run jupyter to launch a jupyter lab session, the token is default set to "local".
+5 - Call docker-compose run shell in order to launch a command line within the container
+6 - Use conda env export --from-history in order to build new environment.yml, copy into docker/environment.yml outside of the container.
+7 - Call docker-compose build again to test if newly installed packages fix the issue.
+
+# to do's in the future:
+1 - Figure out the Channing server and create a different docker-compose-prod file in order to properly prepare things to be sent and run there.
+2 - Create two environments, test and production, as you will likely not want to bother generating plots and installing visualization depndencies when running large computational projects.
+
+
+
+Below is the text from the original branch:
+
 Example template to use Conda + Docker for reproducible, easy to deploy models.
 
 Blog post goes into more detail - find it here:
