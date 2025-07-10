@@ -7,13 +7,13 @@
 6. Use conda env export --from-history in order to build new environment.yml, copy into docker/environment.yml outside of the container.
 7. Call docker-compose build again to test if newly installed packages fix the issue.
 
-# to do's in the future:
-1 - Figure out the Channing server and create a different docker-compose-prod file in order to properly prepare things to be sent and run there.
-2 - Create two environments, test and production, as you will likely not want to bother generating plots and installing visualization depndencies when running large computational projects.
+#### to do's in the future:
+1. Figure out the Channing server and create a different docker-compose-prod file in order to properly prepare things to be sent and run there.
+2. Create two environments, test and production, as you will likely not want to bother generating plots and installing visualization depndencies when running large computational projects.
 
 
 
-Below is the text from the original branch:
+# Below is the text from the original branch:
 
 Example template to use Conda + Docker for reproducible, easy to deploy models.
 
