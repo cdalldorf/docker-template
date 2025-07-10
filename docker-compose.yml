@@ -1,23 +1,20 @@
 services:
   jupyter:
     build: 
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/Dockerfile-dev
       context: ./
-    image: my_project_python
-    env_file:
-      - .env
+    image: cdalldorf/my_project_python:latest
     ports:
       - "8888:8888"
-    command: jupyter lab --no-browser --ip=0.0.0.0 --allow-root --ServerApp.token='local'
+    command: jupyter lab --no-browser --ip=0.0.0.0 --port=8888 --allow-root --ServerApp.token='local'
     volumes:
       - ./data:/data
       - ./code:/code
       - ./notebooks:/notebooks
+      - ./output:/output
 
   shell:
-    image: my_project_python
-    env_file:
-      - .env
+    image: cdalldorf/my_project_python:latest
     entrypoint: /bin/bash
     stdin_open: true
     tty: true
@@ -25,3 +22,4 @@ services:
       - ./data:/data
       - ./code:/code
       - ./notebooks:/notebooks
+      - ./output:/output

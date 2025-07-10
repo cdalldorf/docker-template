@@ -1,11 +1,25 @@
 #### Basic procedure for using this:
 1. Create a new git repository on github.com, using this repository as a template, navigate to the new directory
-2. Modify ./docker-compose.yml to update image: my_project_python to project name
-3. Build initial environemnt using docker-compose build
-4. Use docker-compose run jupyter to launch a jupyter lab session, the token is default set to "local".
+2. Modify ./docker-compose.yml and docker-compose.prod.yml to update image: my_project_python to project name
+3. Build the Docker image using docker-compose build
+4. Use docker-compose up jupyter to launch a jupyter lab session, the token is default set to "local".
 5. Call docker-compose run shell in order to launch a command line within the container
 6. Use conda env export --from-history in order to build new environment.yml, copy into docker/environment.yml outside of the container.
 7. Call docker-compose build again to test if newly installed packages fix the issue.
+
+#### To create python executable scripts for running remotely
+1. docker-compose run shell
+2. jupyter nbconvert --to python notebooks/*.ipynb --output-dir code/
+3. exit
+4. Modify docker-compose.prod.yml to include desired python scripts
+5. Build into a package using the following commands
+docker-compose -f docker-compose.prod.yml build
+docker-compose -f docker-compose.prod.yml push
+
+#### On remote deployment location
+1. docker pull cdalldorf/my_project_python:latest
+2. docker run -v $(pwd)/output:/output cdalldorf/my_project_python:latest python /code/1_test.py
+3. Now this depends on architecture, but it seems like you can just run this as any normal docker container
 
 #### to do's in the future:
 1. Figure out the Channing server and create a different docker-compose-prod file in order to properly prepare things to be sent and run there.
